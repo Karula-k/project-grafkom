@@ -4,10 +4,7 @@
 
 using namespace std;
 
-// posisi kotak
-int pos_x = 0;
-int pos_y = 0;
-
+float x; float y;
 void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
@@ -15,49 +12,55 @@ void display(void)
     glColor3f(0.4, 0.8, 0.6);
 
     // kotak
+    // locking bentuk
+    glPushMatrix();
+    glTranslatef(x, y, 0);
     glBegin(GL_POLYGON);
-        glVertex2f(pos_x, pos_y);
-        glVertex2f(pos_x + 3, pos_y);
-        glVertex2f(pos_x + 3,pos_y + 3);
-        glVertex2f(pos_x, pos_y + 3);
+        glVertex2f(0, 0);
+        glVertex2f(3, 0);
+        glVertex2f(3,3);
+        glVertex2f(0, 3);
     glEnd();
-
+    glPopMatrix();
     glFlush();
+    glutSwapBuffers();
 }
 
-void tekanKeyboardArah(int key,int x, int y){
-    // ARAH KANAN
-    if(key == GLUT_KEY_RIGHT && pos_x < 47){
-        pos_x += 1;
-        glutPostRedisplay();
+//timer yang disinkronasikan dengan gerakan
+void timer(int data)
+{
+    // Jika menekan tombol panah kiri
+    if(GetAsyncKeyState(VK_LEFT)){
+        x-=0.1f;
     }
-    // ARAH KIRI
-    else if(key == GLUT_KEY_LEFT && pos_x > 0){
-        pos_x -= 1;
-        glutPostRedisplay();
-    }
-    // ARAH ATAS TEST
-    if (key == GLUT_KEY_UP && pos_y < 47) {
-        pos_y += 1;
-        glutPostRedisplay();
-    }
-    else if (key == GLUT_KEY_DOWN && pos_y > 0) {
-        pos_y -= 1;
-        glutPostRedisplay();
+    // Jika menekan tombol panah kanan
+    else if(GetAsyncKeyState(VK_RIGHT)){
+        x+=0.1f;
     }
 
-    cout << "posistion = " << pos_x << " " << pos_y << endl;
+    // Jika menekan tombol panah atas
+    if(GetAsyncKeyState(VK_UP)){
+        y+=0.1f;
+        }
+    // Jika menekan tombol panah bawah
+    else if (GetAsyncKeyState(VK_DOWN)){
+        y-=0.1f;
+    }
+
+    glutPostRedisplay();
+	glutTimerFunc(1,timer,0);
 }
 
 int main(int argc, char *argv[])
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(400, 400);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Dodge The Enemies");
     //cahaya();
-    glutSpecialFunc(tekanKeyboardArah);
+    //pemanggilan timer
+    glutTimerFunc(1,timer,0);
     gluOrtho2D(0, 50, 0, 50);
     glutDisplayFunc(display);
     glutMainLoop();
