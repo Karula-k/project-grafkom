@@ -219,3 +219,8 @@
 	<stddef.h>
 	<GL/gl.h>
 
+1606750782 source:e:\college stuff\semester 3\grafkom\fix jancok\project-grafkom\main.cpp
+	<GL/glut.h>
+	<iostream>
+	<stdlib.h>
+
