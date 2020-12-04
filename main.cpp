@@ -1,203 +1,114 @@
 #include <GL/glut.h>
 #include <iostream>
 #include <stdlib.h>
-
+#include "player.h"
+#include "enemy.h"
 using namespace std;
 
 float x; float y;
+Player player;
+Enemy enemy;
 
-void player() {
-
-    // start of bagian kiri
-
-        //kotak biru muda
-        glBegin(GL_POLYGON);
-            glColor3f(0, 242, 255);
-            glVertex2f(0, 3);
-            glVertex2f(0, 4);
-            glVertex2f(1, 4);
-            glVertex2f(1, 3);
-        glEnd();
-
-        // start of sayap kiri
-        glBegin(GL_POLYGON);
-            glColor3f(151, 0, 189);
-            glVertex2f(0, 5);
-            glVertex2f(0, 7);
-            glVertex2f(2, 7);
-            glVertex2f(2, 5);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-            glColor3f(151, 0, 189);
-            glVertex2f(1, 4);
-            glVertex2f(1, 8);
-            glVertex2f(2, 8);
-            glVertex2f(2, 4);
-        glEnd();
-        // end of sayap kiri
-
-        // kotak atas sayap kiri
-        glBegin(GL_POLYGON);
-            glColor3f(207, 0, 0);
-            glVertex2f(1, 8);
-            glVertex2f(1, 9);
-            glVertex2f(2, 9);
-            glVertex2f(2, 8);
-        glEnd();
-
-    // end of sayap kiri
-
-    // start of badan dan kaki
-
-        glBegin(GL_POLYGON);
-            glColor3f(207, 0, 0);
-            glVertex2f(2, 5);
-            glVertex2f(2, 6);
-            glVertex2f(7, 6);
-            glVertex2f(7, 5);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-            glColor3f(207, 0, 0);
-            glVertex2f(3, 9);
-            glVertex2f(6, 9);
-            glVertex2f(6, 4);
-            glVertex2f(3, 4);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-            glColor3f(207, 0, 0);
-            glVertex2f(3, 4);
-            glVertex2f(4, 4);
-            glVertex2f(4, 2);
-            glVertex2f(3, 2);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-            glColor3f(207, 0, 0);
-            glVertex2f(2, 2);
-            glVertex2f(2, 3);
-            glVertex2f(3, 3);
-            glVertex2f(3, 2);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-            glColor3f(207, 0, 0);
-            glVertex2f(5, 4);
-            glVertex2f(5, 2);
-            glVertex2f(6, 2);
-            glVertex2f(6, 4);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-            glColor3f(207, 0, 0);
-            glVertex2f(6, 2);
-            glVertex2f(6, 3);
-            glVertex2f(7, 3);
-            glVertex2f(7, 2);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-            glColor3f(225, 255, 0);
-            glVertex2f(4, 7);
-            glVertex2f(4, 8);
-            glVertex2f(5, 8);
-            glVertex2f(5, 7);
-        glEnd();
-
-        //kotak kaki bawah
-        glBegin(GL_POLYGON);
-            glColor3f(0, 242, 255);
-            glVertex2f(3,1);
-            glVertex2f(3,2);
-            glVertex2f(4,2);
-            glVertex2f(4,1);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-            glColor3f(0, 242, 255);
-            glVertex2f(5,1);
-            glVertex2f(5,2);
-            glVertex2f(6,2);
-            glVertex2f(6,1);
-        glEnd();
-
-    // end of badan dan kaki
-
-    // start of sayap kanan
-
-        //kotak atas sayap kanan
-        glBegin(GL_POLYGON);
-            glColor3f(207, 0, 0);
-            glVertex2d(7,8);
-            glVertex2f(7,9);
-            glVertex2f(8,9);
-            glVertex2f(8,8);
-        glEnd();
-
-        //sayap kanan
-        glBegin(GL_POLYGON);
-            glColor3f(151, 0, 189);
-            glVertex2f(7,4);
-            glVertex2f(7,8);
-            glVertex2f(8,8);
-            glVertex2f(8,4);
-        glEnd();
-
-        glBegin(GL_POLYGON);
-            glColor3f(151, 0, 189);
-            glVertex2f(8,5);
-            glVertex2f(8,7);
-            glVertex2f(9,7);
-            glVertex2f(9,5);
-        glEnd();
-
-        //kotak bawah
-        glBegin(GL_POLYGON);
-            glColor3f(0, 242, 255);
-            glVertex2f(8,3);
-            glVertex2f(8,4);
-            glVertex2f(9,4);
-            glVertex2f(9,3);
-        glEnd();
+// Collider
+float arenaX[2] = {0, 50};
+float arenaY[2] = {0, 50};
+void Colliderarena(){ // Collider bentuk kotak arena
+    glPushMatrix();
+    glBegin(GL_POLYGON);
+	glVertex2f(arenaX[0], arenaY[0]);
+	glVertex2f(arenaX[1], arenaY[0]);
+	glVertex2f(arenaX[1], arenaY[1]);
+	glVertex2f(arenaX[0], arenaY[1]);
+	glEnd();
+    glPopMatrix();
 }
+
+float RandomFloat(float min, float max)
+{
+    float r = (float)rand() / (float)RAND_MAX;
+    return min + r * (max - min);
+}
+
+void diplayenemy(void){
+        glPushMatrix();
+        glTranslated(10,40,0);
+        enemy.GambarPersegi();
+        glPopMatrix();
+
+    }
+
 
 void display(void)
 {
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glEnable(GL_COLOR_MATERIAL);
-    glColor3f(0.4, 0.8, 0.6);
-
     // kotak
     // locking bentuk
     glPushMatrix();
+    player.ColliderPersegi();
     glTranslatef(x, y, 0);
-    player();
+    player.GambarPlayer();
     glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(x,y,0);
+    diplayenemy();
+    glPopMatrix();
+
     glFlush();
     glutSwapBuffers();
 }
 
-//timer yang disinkronasikan dengan gerakan
+//timer yang disinkronasikan dengan gerakan dan collision
 void timer(int data)
 {
     // Jika menekan tombol panah kiri
     if(GetAsyncKeyState(VK_LEFT)){
-        x-=0.1f;
+        if (player.posisiX[0]>arenaX[0]) {
+                player.posisiX[0]-=0.1f;
+                player.posisiX[1]-=0.1f;
+                x-=0.1f;
+                cout<<"left"<<x<<" "<<y<<"\n";
+            }
     }
     // Jika menekan tombol panah kanan
     else if(GetAsyncKeyState(VK_RIGHT)){
-        x+=0.1f;
+        if (player.posisiX[1]<arenaX[1]) {
+            x+=0.1f;
+            player.posisiX[0]+=0.1f;
+            player.posisiX[1]+=0.1f;
+             cout<<"right"<<x<<" "<<y<<"\n";
+        }
     }
 
     // Jika menekan tombol panah atas
     if(GetAsyncKeyState(VK_UP)){
-        y+=0.1f;
+         if (player.posisiY[0]>=arenaY[0]&& player.posisiY[1]<arenaY[1]) {
+            y+=0.1f;
+            player.posisiY[0]+=0.1f;
+            player.posisiY[1]+=0.1f;
+             cout<<"up"<<x<<" "<<y<<"\n";
+
+            }
+        else {
+            y=40;
+            player.posisiY[0]=40;
+            player.posisiY[1]=50;
         }
+    }
     // Jika menekan tombol panah bawah
     else if (GetAsyncKeyState(VK_DOWN)){
-        y-=0.1f;
+        if (player.posisiY[1]<=arenaY[1] && player.posisiY[0]>arenaY[0] ){
+            y-=0.1f;
+            player.posisiY[0]-=0.1f;
+            player.posisiY[1]-=0.1f;
+             cout<<"down"<<x<<" "<<y<<"\n";
+        }
+        else{
+            y=0;
+            player.posisiY[0]=0;
+            player.posisiY[1]=10;
+        }
     }
 
     glutPostRedisplay();
