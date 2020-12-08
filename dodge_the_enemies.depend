@@ -224,3 +224,15 @@
 	<iostream>
 	<stdlib.h>
 
+1607421323 source:e:\college stuff\semester 3\grafkom\project\project-grafkom\main.cpp
+	<GL/glut.h>
+	<iostream>
+	<stdlib.h>
+	<ctime>
+	"player.h"
+	"enemy.h"
+
+1607421301 e:\college stuff\semester 3\grafkom\project\project-grafkom\player.h
+
+1607421301 e:\college stuff\semester 3\grafkom\project\project-grafkom\enemy.h
+
