@@ -41,6 +41,7 @@ void diplayenemy(void){
         //glTranslated(x1,y1,0);
         enemy.GambarPersegi();
         glPopMatrix();
+<<<<<<< HEAD
     }
 
 void diplayenemy2(void){
@@ -48,6 +49,8 @@ void diplayenemy2(void){
         //glTranslated(x1,y1,0);
         enemy2.GambarKotak();
         glPopMatrix();
+=======
+>>>>>>> b7bd8248bdab9a0092f1772123f6ec80ac4ae3bf
     }
 
 
