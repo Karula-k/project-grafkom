@@ -1,18 +1,25 @@
+#include <windows.h>
 #include <GL/glut.h>
 #include <iostream>
 #include <stdlib.h>
+#include <ctime>
 #include "player.h"
 #include "enemy.h"
+#include "enemy2.h"
 using namespace std;
 
-float x; float y;
+float x, y;
+// x1 y1 untuk enemy
+float x1 = -30;
+float y1 = (rand() % 40 + 1);
 Player player;
 Enemy enemy;
+Enemy2 enemy2;
 
 // Collider
 float arenaX[2] = {0, 50};
 float arenaY[2] = {0, 50};
-void Colliderarena(){ // Collider bentuk kotak arena
+void Colliderarena(){ // Collider bentuk kotak
     glPushMatrix();
     glBegin(GL_POLYGON);
 	glVertex2f(arenaX[0], arenaY[0]);
@@ -31,10 +38,16 @@ float RandomFloat(float min, float max)
 
 void diplayenemy(void){
         glPushMatrix();
-        glTranslated(10,40,0);
+        //glTranslated(x1,y1,0);
         enemy.GambarPersegi();
         glPopMatrix();
+    }
 
+void diplayenemy2(void){
+        glPushMatrix();
+        //glTranslated(x1,y1,0);
+        enemy2.GambarKotak();
+        glPopMatrix();
     }
 
 
@@ -51,8 +64,13 @@ void display(void)
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(x,y,0);
+    glTranslatef(x1,y1,0);
     diplayenemy();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(x1,y1,0);
+    diplayenemy2();
     glPopMatrix();
 
     glFlush();
@@ -62,6 +80,19 @@ void display(void)
 //timer yang disinkronasikan dengan gerakan dan collision
 void timer(int data)
 {
+    // enemy spawn di posisi berbeda ketika keluar window
+    srand((unsigned) time(0)); //srand supaya tiap pemanggilan random valuenya selalu berubah
+    if (x1 <= arenaX[1]) {
+        x1 += 0.03f;
+        //cout << "x1 = " << x1 << endl;
+    } else if (x1 > arenaX[1]) {
+        x1 = -20;
+        y1 = (rand() % 40);
+        cout << "y1 = " << y1 << endl;
+    }
+    // end of random spawn
+
+
     // Jika menekan tombol panah kiri
     if(GetAsyncKeyState(VK_LEFT)){
         if (player.posisiX[0]>arenaX[0]) {

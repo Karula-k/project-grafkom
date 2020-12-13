@@ -73,8 +73,8 @@ void enemies() {
 
 
 
-void display(void)
-{
+void display(void){
+
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glEnable(GL_COLOR_MATERIAL);
     glColor3f(0.4, 0.8, 0.6);

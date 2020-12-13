@@ -224,3 +224,19 @@
 	<iostream>
 	<stdlib.h>
 
+1607871937 source:e:\projek grafkom\project-grafkom\main.cpp
+	<windows.h>
+	<GL/glut.h>
+	<iostream>
+	<stdlib.h>
+	<ctime>
+	"player.h"
+	"enemy.h"
+	"enemy2.h"
+
+1607331497 e:\projek grafkom\project-grafkom\player.h
+
+1607872300 e:\projek grafkom\project-grafkom\enemy.h
+
+1607872038 e:\projek grafkom\project-grafkom\enemy2.h
+
