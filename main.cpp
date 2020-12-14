@@ -6,6 +6,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "enemy2.h"
+#include "printer.h"
 using namespace std;
 
 float x, y;
@@ -15,6 +16,7 @@ float y1 = (rand() % 40 + 1);
 Player player;
 Enemy enemy;
 Enemy2 enemy2;
+Printer printer;
 
 // Collider
 float arenaX[2] = {0, 50};
@@ -94,8 +96,17 @@ void timer(int data)
         cout << "y1 = " << y1 << endl;
     }
     // end of random spawn
-
-
+    // collisin enemy 
+    if(player.posisiX[0]< x1 +10 &&
+        player.posisiX[0] + 10 > x1 &&
+        player.posisiY[0] < y1 + 10 &&
+        player.posisiY[0] + 10 > y1)
+    {
+    nyawa--;
+    cout<<"Collision Detected"<<endl;
+    cout<<nyawa<<endl;
+    }
+     //end of collisin enemy
     // Jika menekan tombol panah kiri
     if(GetAsyncKeyState(VK_LEFT)){
         if (player.posisiX[0]>arenaX[0]) {

@@ -45,6 +45,7 @@
 		<Unit filename="enemy.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="player.h" />
+		<Unit filename="printer.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
