@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <GL/glut.h>
 #include <iostream>
+#include <string>
 #include <stdlib.h>
 #include <ctime>
 #include "player.h"
@@ -11,6 +12,8 @@ using namespace std;
 
 float x, y;
 // x1 y1 untuk enemy
+float var1 = 3*1000;
+float var2;
 float x1 = -30;
 float y1 = (rand() % 40 + 1);
 Player player;
@@ -54,7 +57,13 @@ void diplayenemy2(void){
 =======
 >>>>>>> b7bd8248bdab9a0092f1772123f6ec80ac4ae3bf
     }
-
+void text_draw(void){
+    sprintf(text_nyawa, "nyawa %d", nyawa );
+    glPushMatrix();
+    glColor3f(1.0f,0.0f,0.0f);
+    printer.drawText(0,47,text_nyawa);
+    glPopMatrix();
+}
 
 void display(void)
 {
@@ -78,6 +87,7 @@ void display(void)
     diplayenemy2();
     glPopMatrix();
 
+    text_draw();
     glFlush();
     glutSwapBuffers();
 }
@@ -96,15 +106,22 @@ void timer(int data)
         cout << "y1 = " << y1 << endl;
     }
     // end of random spawn
-    // collisin enemy 
-    if(player.posisiX[0]< x1 +10 &&
-        player.posisiX[0] + 10 > x1 &&
-        player.posisiY[0] < y1 + 10 &&
-        player.posisiY[0] + 10 > y1)
-    {
-    nyawa--;
-    cout<<"Collision Detected"<<endl;
-    cout<<nyawa<<endl;
+    // collisin enemy
+    if (var2>0){
+        var2--;
+    }
+    if (var2<=0){
+        if(player.posisiX[0]< x1 +10 &&
+            player.posisiX[0] + 10 > x1 &&
+            player.posisiY[0] < y1 + 10 &&
+            player.posisiY[0] + 10 > y1)
+        {
+        nyawa--;
+        cout<<"Collision Detected"<<endl;
+        cout<<nyawa<<endl;
+        var2=var1;
+        }
+
     }
      //end of collisin enemy
     // Jika menekan tombol panah kiri
