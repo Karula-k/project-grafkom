@@ -46,7 +46,7 @@ void diplayenemy(void){
         //glTranslated(x1,y1,0);
         enemy.GambarPersegi();
         glPopMatrix();
-<<<<<<< HEAD
+
     }
 
 void diplayenemy2(void){
@@ -54,8 +54,7 @@ void diplayenemy2(void){
         //glTranslated(x1,y1,0);
         enemy2.GambarKotak();
         glPopMatrix();
-=======
->>>>>>> b7bd8248bdab9a0092f1772123f6ec80ac4ae3bf
+
     }
 void text_draw(void){
     sprintf(text_nyawa, "nyawa %d", nyawa );
@@ -103,7 +102,6 @@ void timer(int data)
     } else if (x1 > arenaX[1]) {
         x1 = -20;
         y1 = (rand() % 40);
-        cout << "y1 = " << y1 << endl;
     }
     // end of random spawn
     // collisin enemy
