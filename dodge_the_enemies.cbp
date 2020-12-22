@@ -43,6 +43,9 @@
 			<Add directory="F:/CodeBlocks/MinGW/lib" />
 		</Linker>
 		<Unit filename="enemy.h" />
+		<Unit filename="enemy2.h">
+			<Option target="&lt;{~None~}&gt;" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="player.h" />
 		<Unit filename="printer.h" />

@@ -1,23 +1,34 @@
-#include <windows.h>
 #include <GL/glut.h>
 #include <iostream>
 #include <stdlib.h>
 #include <ctime>
+#include <fstream>
+#include <string>
+#include <sstream>
 #include "player.h"
 #include "enemy.h"
 #include "enemy2.h"
 #include "printer.h"
-using namespace std;
 
+
+using namespace std;
+int nyawa = 5;
+float var1 = 3*1000;
+float var2;
+char text_nyawa[1000];
 float x, y;
 // x1 y1 untuk enemy
 float x1 = -30;
 float y1 = (rand() % 40 + 1);
+// enemy 2
+float x2 = (rand() % 40 + 1);
+float y2 = 80;
+
 Player player;
 Enemy enemy;
 Enemy2 enemy2;
 Printer printer;
-
+float cooldown = 10;
 // Collider
 float arenaX[2] = {0, 50};
 float arenaY[2] = {0, 50};
@@ -31,7 +42,7 @@ void Colliderarena(){ // Collider bentuk kotak
 	glEnd();
     glPopMatrix();
 }
-
+// 5-662
 float RandomFloat(float min, float max)
 {
     float r = (float)rand() / (float)RAND_MAX;
@@ -43,18 +54,22 @@ void diplayenemy(void){
         //glTranslated(x1,y1,0);
         enemy.GambarPersegi();
         glPopMatrix();
-<<<<<<< HEAD
     }
 
-void diplayenemy2(void){
+void displayenemy2(void) {
         glPushMatrix();
         //glTranslated(x1,y1,0);
-        enemy2.GambarKotak();
+        enemy2.GambarPersegi();
         glPopMatrix();
-=======
->>>>>>> b7bd8248bdab9a0092f1772123f6ec80ac4ae3bf
-    }
+}
 
+void text_draw(void){
+    sprintf(text_nyawa, "nyawa %d", nyawa );
+    glPushMatrix();
+    glColor3f(1.0f,0.0f,0.0f);
+    printer.drawText(0,47,text_nyawa);
+    glPopMatrix();
+}
 
 void display(void)
 {
@@ -63,21 +78,23 @@ void display(void)
     // kotak
     // locking bentuk
     glPushMatrix();
-    player.ColliderPersegi();
     glTranslatef(x, y, 0);
     player.GambarPlayer();
     glPopMatrix();
 
     glPushMatrix();
+    enemy.ColliderPersegi(x1,y1);
     glTranslatef(x1,y1,0);
     diplayenemy();
     glPopMatrix();
 
     glPushMatrix();
-    glTranslatef(x1,y1,0);
-    diplayenemy2();
+    enemy.ColliderPersegi(x2,y2);
+    glTranslatef(x2,y2,0);
+    diplayenemy();
     glPopMatrix();
 
+    text_draw();
     glFlush();
     glutSwapBuffers();
 }
@@ -85,7 +102,7 @@ void display(void)
 //timer yang disinkronasikan dengan gerakan dan collision
 void timer(int data)
 {
-    // enemy spawn di posisi berbeda ketika keluar window
+    // enemy1 spawn di posisi berbeda ketika keluar window
     srand((unsigned) time(0)); //srand supaya tiap pemanggilan random valuenya selalu berubah
     if (x1 <= arenaX[1]) {
         x1 += 0.03f;
@@ -93,20 +110,40 @@ void timer(int data)
     } else if (x1 > arenaX[1]) {
         x1 = -20;
         y1 = (rand() % 40);
-        cout << "y1 = " << y1 << endl;
+        //cout << "y1 = " << y1 << endl;
     }
     // end of random spawn
-    // collisin enemy 
-    if(player.posisiX[0]< x1 +10 &&
-        player.posisiX[0] + 10 > x1 &&
-        player.posisiY[0] < y1 + 10 &&
-        player.posisiY[0] + 10 > y1)
-    {
-    nyawa--;
-    cout<<"Collision Detected"<<endl;
-    cout<<nyawa<<endl;
+
+    // enemy2 spawn di posisi berbeda ketika keluar window
+    srand((unsigned) time(0)); //srand supaya tiap pemanggilan random valuenya selalu berubah
+    if (y2 >= arenaY[0]-30) {
+        y2 -= 0.03f;
+
+    } else if (y2 < arenaY[0]) {
+        y2 = 80;
+        x2 = (rand() % 40);
+        //cout << "y1 = " << y1 << endl;
     }
-     //end of collisin enemy
+    // end of random spawn
+
+    //colisin
+    if (var2>0){
+        var2--;
+    }
+    if (var2<=0){
+        if(player.posisiX[0]< x1 +10 &&
+            player.posisiX[0] + 10 > x1 &&
+            player.posisiY[0] < y1 + 10 &&
+            player.posisiY[0] + 10 > y1)
+        {
+        nyawa--;
+        cout<<"Collision Detected"<<endl;
+        cout<<nyawa<<endl;
+        var2=var1;
+        }
+
+    }
+
     // Jika menekan tombol panah kiri
     if(GetAsyncKeyState(VK_LEFT)){
         if (player.posisiX[0]>arenaX[0]) {
@@ -132,14 +169,12 @@ void timer(int data)
             y+=0.1f;
             player.posisiY[0]+=0.1f;
             player.posisiY[1]+=0.1f;
-             cout<<"up"<<x<<" "<<y<<"\n";
-
-            }
+             cout<<"up"<<x<<" "<<y<<"\n";            }
         else {
             y=40;
             player.posisiY[0]=40;
             player.posisiY[1]=50;
-        }
+         }
     }
     // Jika menekan tombol panah bawah
     else if (GetAsyncKeyState(VK_DOWN)){
@@ -148,7 +183,7 @@ void timer(int data)
             player.posisiY[0]-=0.1f;
             player.posisiY[1]-=0.1f;
              cout<<"down"<<x<<" "<<y<<"\n";
-        }
+           }
         else{
             y=0;
             player.posisiY[0]=0;

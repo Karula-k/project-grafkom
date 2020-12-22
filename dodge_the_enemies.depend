@@ -224,30 +224,52 @@
 	<iostream>
 	<stdlib.h>
 
-<<<<<<< HEAD
+1607421323 D
+	"enemy2.h"
+
 1607871937 source:e:\projek grafkom\project-grafkom\main.cpp
 	<windows.h>
-=======
+
+1607871937 >
+
 1607421323 source:e:\college stuff\semester 3\grafkom\project\project-grafkom\main.cpp
->>>>>>> b7bd8248bdab9a0092f1772123f6ec80ac4ae3bf
+
+1607421301 d8248bdab9a0092f1772123f6ec80ac4ae3bf
 	<GL/glut.h>
 	<iostream>
 	<stdlib.h>
 	<ctime>
 	"player.h"
 	"enemy.h"
-<<<<<<< HEAD
-	"enemy2.h"
 
 1607331497 e:\projek grafkom\project-grafkom\player.h
 
 1607872300 e:\projek grafkom\project-grafkom\enemy.h
 
 1607872038 e:\projek grafkom\project-grafkom\enemy2.h
-=======
 
 1607421301 e:\college stuff\semester 3\grafkom\project\project-grafkom\player.h
 
 1607421301 e:\college stuff\semester 3\grafkom\project\project-grafkom\enemy.h
->>>>>>> b7bd8248bdab9a0092f1772123f6ec80ac4ae3bf
+
+1608645548 source:e:\college stuff\semester 3\grafkom\project-grafkom\main.cpp
+	<GL/glut.h>
+	<iostream>
+	<stdlib.h>
+	<ctime>
+	<fstream>
+	<string>
+	<sstream>
+	"player.h"
+	"enemy.h"
+	"enemy2.h"
+	"printer.h"
+
+1608643463 e:\college stuff\semester 3\grafkom\project-grafkom\player.h
+
+1608643447 e:\college stuff\semester 3\grafkom\project-grafkom\enemy.h
+
+1608645162 e:\college stuff\semester 3\grafkom\project-grafkom\enemy2.h
+
+1608643494 e:\college stuff\semester 3\grafkom\project-grafkom\printer.h
 
