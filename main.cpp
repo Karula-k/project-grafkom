@@ -1,5 +1,6 @@
 #include <GL/glut.h>
 #include <iostream>
+#include <string>
 #include <stdlib.h>
 #include <ctime>
 #include <fstream>
@@ -54,6 +55,7 @@ void diplayenemy(void){
         //glTranslated(x1,y1,0);
         enemy.GambarPersegi();
         glPopMatrix();
+
     }
 
 void displayenemy2(void) {
@@ -126,7 +128,24 @@ void timer(int data)
     }
     // end of random spawn
 
-    //colisin
+    // collisin enemy
+    if (var2>0){
+        var2--;
+    }
+    if (var2<=0){
+        if(player.posisiX[0]< x1 +10 &&
+            player.posisiX[0] + 10 > x1 &&
+            player.posisiY[0] < y1 + 10 &&
+            player.posisiY[0] + 10 > y1)
+        {
+        nyawa--;
+        cout<<"Collision Detected"<<endl;
+        cout<<nyawa<<endl;
+        var2=var1;
+        }
+    }
+
+    //colision enemy1
     if (var2>0){
         var2--;
     }
