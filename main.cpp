@@ -9,6 +9,7 @@
 #include "player.h"
 #include "enemy.h"
 #include "enemy2.h"
+#include "enemy3.h"
 #include "printer.h"
 
 
@@ -24,11 +25,17 @@ float y1 = (rand() % 40 + 1);
 // enemy 2
 float x2 = (rand() % 40 + 1);
 float y2 = 80;
+//enemy 3
+float x3 = 80;
+float y3 = (rand() % 40 + 1);
 
 Player player;
 Enemy enemy;
 Enemy2 enemy2;
+Enemy3 enemy3;
 Printer printer;
+
+
 float cooldown = 10;
 // Collider
 float arenaX[2] = {0, 50};
@@ -55,13 +62,19 @@ void diplayenemy(void){
         //glTranslated(x1,y1,0);
         enemy.GambarPersegi();
         glPopMatrix();
-
-    }
+}
 
 void displayenemy2(void) {
         glPushMatrix();
         //glTranslated(x1,y1,0);
         enemy2.GambarPersegi();
+        glPopMatrix();
+}
+
+void diplayenemy3(void){
+        glPushMatrix();
+        //glTranslated(x1,y1,0);
+        enemy.GambarPersegi();
         glPopMatrix();
 }
 
@@ -84,15 +97,24 @@ void display(void)
     player.GambarPlayer();
     glPopMatrix();
 
+    //enemy 1
     glPushMatrix();
     enemy.ColliderPersegi(x1,y1);
     glTranslatef(x1,y1,0);
     diplayenemy();
     glPopMatrix();
 
+    //enemy 2
     glPushMatrix();
     enemy.ColliderPersegi(x2,y2);
     glTranslatef(x2,y2,0);
+    diplayenemy();
+    glPopMatrix();
+
+    //enemy3
+    glPushMatrix();
+    enemy.ColliderPersegi(x3,y3);
+    glTranslatef(x3,y3,0);
     diplayenemy();
     glPopMatrix();
 
@@ -104,27 +126,44 @@ void display(void)
 //timer yang disinkronasikan dengan gerakan dan collision
 void timer(int data)
 {
-    // enemy1 spawn di posisi berbeda ketika keluar window
     srand((unsigned) time(0)); //srand supaya tiap pemanggilan random valuenya selalu berubah
+    int random1 = rand() % 40;
+    int random2 = rand() % 40;
+    int random3 = rand() % 40;
+
+    // enemy1 spawn di posisi berbeda ketika keluar window
+
     if (x1 <= arenaX[1]) {
         x1 += 0.03f;
         //cout << "x1 = " << x1 << endl;
     } else if (x1 > arenaX[1]) {
         x1 = -20;
-        y1 = (rand() % 40);
-        //cout << "y1 = " << y1 << endl;
+        y1 = random1;
+        cout << "y1 = " << y1 << endl;
     }
     // end of random spawn
 
     // enemy2 spawn di posisi berbeda ketika keluar window
-    srand((unsigned) time(0)); //srand supaya tiap pemanggilan random valuenya selalu berubah
+
     if (y2 >= arenaY[0]-30) {
         y2 -= 0.03f;
 
     } else if (y2 < arenaY[0]) {
         y2 = 80;
-        x2 = (rand() % 40);
-        //cout << "y1 = " << y1 << endl;
+        x2 = random2;
+        cout << "x2 = " << x2 << endl;
+    }
+    // end of random spawn
+
+    // enemy3 spawn di posisi berbeda ketika keluar window
+
+    if (x3 >= arenaX[0]-30) {
+        x3 -= 0.04f;
+        //cout << "x1 = " << x1 << endl;
+    } else if (x3 < arenaX[0]) {
+        x3 = 80;
+        y3 = random3;
+        cout << "y3 = " << y3 << endl;
     }
     // end of random spawn
 
@@ -145,15 +184,33 @@ void timer(int data)
         }
     }
 
-    //colision enemy1
+    //colision enemy2
     if (var2>0){
         var2--;
     }
     if (var2<=0){
-        if(player.posisiX[0]< x1 +10 &&
-            player.posisiX[0] + 10 > x1 &&
-            player.posisiY[0] < y1 + 10 &&
-            player.posisiY[0] + 10 > y1)
+        if(player.posisiX[0]< x2 +10 &&
+            player.posisiX[0] + 10 > x2 &&
+            player.posisiY[0] < y2 + 10 &&
+            player.posisiY[0] + 10 > y2)
+        {
+        nyawa--;
+        cout<<"Collision Detected"<<endl;
+        cout<<nyawa<<endl;
+        var2=var1;
+        }
+
+    }
+
+    //colision enemy3
+    if (var2>0){
+        var2--;
+    }
+    if (var2<=0){
+        if(player.posisiX[0]< x3 +10 &&
+            player.posisiX[0] + 10 > x3 &&
+            player.posisiY[0] < y3 + 10 &&
+            player.posisiY[0] + 10 > y3)
         {
         nyawa--;
         cout<<"Collision Detected"<<endl;
@@ -218,7 +275,7 @@ int main(int argc, char *argv[])
 {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(400, 400);
+    glutInitWindowSize(500, 500);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Dodge The Enemies");
     //cahaya();
