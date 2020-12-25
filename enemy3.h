@@ -3,11 +3,7 @@ class Enemy3{
         void GambarPersegi(){
             glPushMatrix();
             glBegin(GL_POLYGON);
-            glColor3f(1.0,0.0,1.0);
-            glVertex2f(50,20);
-            glVertex2f(50,30);
-            glVertex2f(60,30);
-            glVertex2f(60,20);
+           musuh.GambarCircle();
             glEnd();
         glPopMatrix();
       }

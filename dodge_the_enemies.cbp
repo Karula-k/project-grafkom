@@ -51,6 +51,7 @@
 		<Unit filename="page3.h" />
 		<Unit filename="player.h" />
 		<Unit filename="printer.h" />
+		<Unit filename="spider.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

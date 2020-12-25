@@ -5,7 +5,11 @@
 #include <ctime>
 #include <fstream>
 #include <string>
+#include <cstring>
+#include <fstream>
 #include <sstream>
+#include "musuh.h"
+#include "spider.h"
 #include "player.h"
 #include "enemy.h"
 #include "enemy2.h"
@@ -16,7 +20,7 @@
 
 using namespace std;
 int nyawa = 5;
-float var1 = 1*3000;
+float var1 = 1*1000;
 float var2;
 char text_nyawa[1000];
 float x, y;
@@ -115,25 +119,21 @@ void page1(void)
 
     //enemy 1
     glPushMatrix();
-    enemy.ColliderPersegi(x1,y1);
     glTranslatef(x1,y1,0);
     diplayenemy();
     glPopMatrix();
 
     //enemy 2
     glPushMatrix();
-    enemy.ColliderPersegi(x2,y2);
     glTranslatef(x2,y2,0);
     diplayenemy();
     glPopMatrix();
 
     //enemy3
     glPushMatrix();
-    enemy.ColliderPersegi(x3,y3);
     glTranslatef(x3,y3,0);
     diplayenemy();
     glPopMatrix();
-
     text_draw();
     glFlush();
     glutSwapBuffers();
@@ -144,7 +144,6 @@ void display(){
         page1();
     } else if(nyawa<=0 &&live==false) {
         page2.drawpage2();
-        nyawa = 6;
     }else{
         page3.menupage();
     }
