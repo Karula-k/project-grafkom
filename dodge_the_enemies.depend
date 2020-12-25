@@ -234,8 +234,22 @@
 
 1607871937 >
 
-1608044440 source:e:\college stuff\semester 3\grafkom\project\project-grafkom\main.cpp
-	<windows.h>
+1608867584 source:e:\college stuff\semester 3\grafkom\project\project-grafkom\main.cpp
+	<GL/glut.h>
+	<iostream>
+	<string>
+	<stdlib.h>
+	<ctime>
+	<fstream>
+	<string>
+	<sstream>
+	"player.h"
+	"enemy.h"
+	"enemy2.h"
+	"enemy3.h"
+	"printer.h"
+	"page2.h"
+	"page3.h"
 
 1607421301 d8248bdab9a0092f1772123f6ec80ac4ae3bf
 	<GL/glut.h>
@@ -260,11 +274,11 @@
 
 1607872038 e:\projek grafkom\project-grafkom\enemy2.h
 
-1608044440 e:\college stuff\semester 3\grafkom\project\project-grafkom\player.h
+1608864623 e:\college stuff\semester 3\grafkom\project\project-grafkom\player.h
 
-1607421301 e:\college stuff\semester 3\grafkom\project\project-grafkom\enemy.h
+1608867641 e:\college stuff\semester 3\grafkom\project\project-grafkom\enemy.h
 
-1608044440 e:\college stuff\semester 3\grafkom\project\project-grafkom\enemy2.h
+1608867640 e:\college stuff\semester 3\grafkom\project\project-grafkom\enemy2.h
 
 1608802149 source:e:\college stuff\semester 3\grafkom\project-grafkom\main.cpp
 	<GL/glut.h>
@@ -289,7 +303,13 @@
 
 1608643494 e:\college stuff\semester 3\grafkom\project-grafkom\printer.h
 
-1608044440 e:\college stuff\semester 3\grafkom\project\project-grafkom\printer.h
+1608864623 e:\college stuff\semester 3\grafkom\project\project-grafkom\printer.h
 
 1608801423 e:\college stuff\semester 3\grafkom\project-grafkom\enemy3.h
+
+1608864623 e:\college stuff\semester 3\grafkom\project\project-grafkom\enemy3.h
+
+1608867368 e:\college stuff\semester 3\grafkom\project\project-grafkom\page2.h
+
+1608867461 e:\college stuff\semester 3\grafkom\project\project-grafkom\page3.h
 

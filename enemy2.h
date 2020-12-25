@@ -16,9 +16,9 @@ class Enemy2{
             glBegin(GL_POLYGON);
             glColor3f(1.0f,1.0f,1.0f);
             glVertex2f(x2, y2);
-            glVertex2f(x2+10, y2);
-            glVertex2f(x2+10, y2+10);
-            glVertex2f(x2, y2+10);
+            glVertex2f(x2+8, y2);
+            glVertex2f(x2+8, y2+8);
+            glVertex2f(x2, y2+8);
             glEnd();
             glPopMatrix();
        }

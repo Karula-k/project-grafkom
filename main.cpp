@@ -16,7 +16,7 @@
 
 using namespace std;
 int nyawa = 5;
-float var1 = 1*1000;
+float var1 = 1*3000;
 float var2;
 char text_nyawa[1000];
 float x, y;
@@ -50,8 +50,8 @@ float orthoSize[4] = {
 // Posisi titik
 int tombol[4] = {
     15, // xStart
-    20, // xEnd
-    25, // yStart
+    30, // xEnd
+    20, // yStart
     35// yEnd
 };
 bool tombolActive;
@@ -142,8 +142,9 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     if(nyawa>0 && live){
         page1();
-    } else if(nyawa<=0 &&nyawa==false) {
+    } else if(nyawa<=0 &&live==false) {
         page2.drawpage2();
+        nyawa = 6;
     }else{
         page3.menupage();
     }
