@@ -47,6 +47,7 @@
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
 		<Unit filename="main.cpp" />
+		<Unit filename="matahari.h" />
 		<Unit filename="page2.h" />
 		<Unit filename="page3.h" />
 		<Unit filename="player.h" />

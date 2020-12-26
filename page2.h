@@ -1,25 +1,29 @@
 Player player;
+Background background;
 Printer printer;
+int totalScore;
+char text_score[1000];
 class Page2{
     public:
         void drawpage2(void){
-        /*glColor3f(1.0f,0.0f,1.0f);
         glPushMatrix();
-        glTranslatef(20, 20, 0);
+        background.bg_2();
+        glPopMatrix();
+        glPushMatrix();
+        glTranslatef(20, 25, 0);
         player.GambarPlayer();
         glPopMatrix();
         glPushMatrix();
-        printer.drawText(15,25,"GAME OVER");
+        printer.drawText(17,35,"GAME OVER");
         glPopMatrix();
-        glFlush();*/
         glPushMatrix();
         glColor3f(1.0f,0.0f,0.0f);
-        printer.drawText(15,25,"Click to Restart Game");
+        printer.drawText(15,20,"Click to Restart Game");
         glPopMatrix();
         glPushMatrix();
         glColor3f(0.0f,0.0f,1.0f);
-        //glTranslatef(22,16,0);
-        //enemy.GambarPersegi();
+        sprintf(text_score, "your score %d",totalScore);
+        printer.drawText(15,10,text_score);
         glPopMatrix();
         glFlush();
     }

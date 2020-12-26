@@ -15,8 +15,11 @@
 #include "enemy2.h"
 #include "enemy3.h"
 #include "printer.h"
+#include "background.h"
 #include "page2.h"
 #include "page3.h"
+#include "highscorests.h"
+#include "matahari.h"
 
 using namespace std;
 int nyawa = 5;
@@ -34,12 +37,14 @@ float y2 = 80;
 float x3 = 80;
 float y3 = (rand() % 40 + 1);
 bool live =false;
-
+bool pageend = false;
+float timing = 0;
+float cek = 1000;
 Enemy2 enemy2;
 Enemy3 enemy3;
 Page2 page2;
 Page3 page3;
-
+Matahari matahari;
 float cooldown = 10;
 // Collider
 float arenaX[2] = {0, 50};
@@ -58,7 +63,14 @@ int tombol[4] = {
     20, // yStart
     35// yEnd
 };
+int tombol2[4] = {
+    15, // xStart
+    30, // xEnd
+    20, // yStart
+    35// yEnd
+};
 bool tombolActive;
+//int  win_width, win_height;
 
 void Colliderarena(){ // Collider bentuk kotak
     glPushMatrix();
@@ -70,13 +82,6 @@ void Colliderarena(){ // Collider bentuk kotak
 	glEnd();
     glPopMatrix();
 }
-// 5-662
-float RandomFloat(float min, float max)
-{
-    float r = (float)rand() / (float)RAND_MAX;
-    return min + r * (max - min);
-}
-
 void diplayenemy(void){
         glPushMatrix();
         //glTranslated(x1,y1,0);
@@ -104,6 +109,10 @@ void text_draw(void){
     glColor3f(1.0f,0.0f,0.0f);
     printer.drawText(0,47,text_nyawa);
     glPopMatrix();
+    glPushMatrix();
+    sprintf(text_score, "Score %d",totalScore  );
+    printer.drawText(35,47,text_score);
+    glPopMatrix();
 }
 
 void page1(void)
@@ -111,6 +120,33 @@ void page1(void)
     glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
     glEnable(GL_COLOR_MATERIAL);
     // kotak
+    glPushMatrix();
+    background.sky();
+    background.land();
+    glPopMatrix();
+    glPushMatrix();
+    background.loot_ofbg(0,-5,0);
+    background.loot_ofbg(0,1,0);
+    background.loot_ofbg(0,-2,0);
+    glPopMatrix();
+    glPushMatrix();
+    glTranslated(10,15,0);
+    background.gravestone();
+    glPopMatrix();
+    glPushMatrix();
+    glTranslated(5,10,0);
+    background.gravestone();
+    glPopMatrix();
+    glPushMatrix();
+    glTranslated(20,8,0);
+    background.gravestone();
+    glPopMatrix();
+    glPushMatrix();
+    glColor3f(1.0f,0.0f,0.0f);
+    glScaled(5,5,0);
+    glTranslated(5,4,0);
+    matahari.gambarmata();
+    glPopMatrix();
     // locking bentuk
     glPushMatrix();
     glTranslatef(x, y, 0);
@@ -134,7 +170,9 @@ void page1(void)
     glTranslatef(x3,y3,0);
     diplayenemy();
     glPopMatrix();
+    glPushMatrix();
     text_draw();
+    glPopMatrix();
     glFlush();
     glutSwapBuffers();
 }
@@ -145,6 +183,7 @@ void display(){
     } else if(nyawa<=0 &&live==false) {
         page2.drawpage2();
     }else{
+        pageend =true;
         page3.menupage();
     }
     glutSwapBuffers();
@@ -153,6 +192,7 @@ void display(){
 void timer(int data)
 {
     if (nyawa<=0){
+            sprintf(text_score, "%d",totalScore);
             live=false;
         }
     srand((unsigned) time(0)); //srand supaya tiap pemanggilan random valuenya selalu berubah
@@ -248,7 +288,13 @@ void timer(int data)
         }
 
     }
-
+    if(live){
+        timing++;
+        if (timing >= cek){
+            totalScore+=25;
+            cek+=1000;
+        }
+    }
     // Jika menekan tombol panah kiri
     if(GetAsyncKeyState(VK_LEFT)){
         if (player.posisiX[0]>arenaX[0]&&live) {
@@ -319,8 +365,30 @@ void getMouseActivePos(int button, int state, int rawPosX, int rawPosY) {
                 live=true;
             }
         }
+       if (mousePositionX >= tombol2[0] && mousePositionX <= tombol2[1]&&pageend){
+            if (mousePositionY >= tombol2[2] && mousePositionY <= tombol2[3]){
+                // Code Here
+                cout << "hello there!!\n";
+                pageend=false;
+                live =true;
+                totalScore = 0;
+                nyawa =5;
+            }
+        }
 	}
 }
+//void on_resize(int w, int h)
+//{
+//    win_width = w;
+//    win_height = h;
+//    glViewport(0, 0, w, h);
+//    glMatrixMode(GL_PROJECTION);
+//    glLoadIdentity();
+//    glOrtho(-w / 2, w / 2, -h / 2, h / 2, -1, 1);
+//    glMatrixMode(GL_MODELVIEW);
+//    glLoadIdentity();
+//    display(); // refresh window.
+//}
 int main(int argc, char *argv[]){
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
@@ -332,6 +400,7 @@ int main(int argc, char *argv[]){
     glutTimerFunc(1,timer,0);
     gluOrtho2D(0, 50, 0, 50);
     glutDisplayFunc(display);
+  //  glutReshapeFunc(on_resize);
     glutMouseFunc(getMouseActivePos);
     glutMainLoop();
     return 0;
