@@ -49,8 +49,96 @@ class Background{
             glVertex2f(7.41683, 2.10507);
             glEnd();
 
-
-
                }
+        void loot_ofbg(int xbg,int ybg,int zbg){
+            glPushMatrix();
+            glTranslated(0+xbg,25+ybg,0+zbg);
+            GambarBg();
+            glPopMatrix();
+            glPushMatrix();
+            glTranslated(10+xbg,25+ybg,0+zbg);
+            GambarBg();
+            glPopMatrix();
+            glPushMatrix();
+            glTranslated(20+xbg,25+ybg,0+zbg);
+            GambarBg();
+            glPopMatrix();
+            glPushMatrix();
+            glTranslated(30+xbg,25+ybg,0+zbg);
+            GambarBg();
+            glPopMatrix();
+            glPushMatrix();
+            glTranslated(40+xbg,25+ybg,0+zbg);
+            GambarBg();
+            glPopMatrix();
+        }
+
+        void sky(){
+            glPushMatrix();
+            glColor3ub(53,81,98);
+            glBegin(GL_POLYGON);
+            glVertex2f(0,25);
+            glVertex2f(50,25);
+            glVertex2f(50,50);
+            glVertex2f(0,50);
+            glPopMatrix();
+            glEnd();
+        }
+      void land(){
+        glPushMatrix();
+        glColor3ub(155,118,83);
+        glBegin(GL_POLYGON);
+        glVertex2f(0,0);
+        glVertex2f(50,0);
+        glVertex2f(50,25);
+        glVertex2f(0,25);
+        glEnd();
+        glPopMatrix();
+       }
+     void gravestone(){
+        glPushMatrix();
+        glBegin(GL_POLYGON);
+        glColor3ub(85,93,80);
+        glVertex2f(0,0);
+        glVertex2f(0,2);
+        glVertex2f(4,2);
+        glVertex2f(4,0);
+        glEnd();
+        glBegin(GL_POLYGON);
+        glVertex2f(0,2);
+        glVertex2f(1,4);
+        glVertex2f(3,4);
+        glVertex2f(4,2);
+        glEnd();
+        glPopMatrix();
+     }
+     void bg_1(){
+        glPushMatrix();
+        glEnable (GL_BLEND);
+        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glColor4f(0.0f, 1.0f, 1.0f, 1.0f);
+        glBegin(GL_POLYGON);
+        glVertex2f(0,50);
+        glVertex2f(0,50);
+        glVertex2f(50,50);
+        glVertex2f(50,0);
+        glEnd();
+        glPopMatrix();
+     }
+     void bg_2(){
+        glPushMatrix();
+        glEnable (GL_BLEND);
+        glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glColor4f(1.0f, 0.5f, 0.0f, 0.0f);
+        glBegin(GL_POLYGON);
+        glVertex2f(0,50);
+        glVertex2f(0,50);
+        glVertex2f(50,50);
+        glVertex2f(50,0);
+        glEnd();
+        glPopMatrix();
+     }
 };
+
+
 

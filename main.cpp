@@ -18,7 +18,6 @@
 #include "background.h"
 #include "page2.h"
 #include "page3.h"
-#include "highscorests.h"
 #include "matahari.h"
 
 using namespace std;
